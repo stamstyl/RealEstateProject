@@ -5,10 +5,12 @@ import { DashboardPage } from "../../page_objects/dashboard.page";
 import { LoginPage } from "../../page_objects/login.page";
 import { faker } from '@faker-js/faker';
 
-let registrationPage;
-let dashboardPage;
-let homePage;
-let loginPage;
+let registrationPage, dashboardPage, homePage, loginPage;
+
+const nameRandom = faker.person.firstName();
+const lastNameRandom = faker.person.lastName();
+const emailRandom = faker.internet.email({ firstName: nameRandom, lastName: lastNameRandom });
+const passwordRandom = faker.internet.password();
 
 test.beforeEach( async ({ page }) => {
   registrationPage = new RegistrationPage(page);
@@ -20,11 +22,6 @@ test.beforeEach( async ({ page }) => {
 });
 
 test("Should register a new account", async ({ page }) => {
-  const nameRandom = faker.person.firstName();
-  const lastNameRandom = faker.person.lastName();
-  const emailRandom = faker.internet.email({ firstName: nameRandom, lastName: lastNameRandom });
-  const passwordRandom = faker.internet.password();
-
   await homePage.buttonRegister.click();
   await registrationPage.registration(nameRandom,lastNameRandom, passwordRandom, emailRandom);
 
