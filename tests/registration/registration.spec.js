@@ -19,7 +19,7 @@ test.beforeEach( async ({ page }) => {
   await page.goto("/");
 });
 
-test.only("Should register a new account", async ({ page }) => {
+test("Should register a new account", async ({ page }) => {
   const nameRandom = faker.person.firstName();
   const lastNameRandom = faker.person.lastName();
   const emailRandom = faker.internet.email({ firstName: nameRandom, lastName: lastNameRandom });
