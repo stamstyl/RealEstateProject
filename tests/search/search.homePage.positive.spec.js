@@ -12,11 +12,11 @@ test.describe("Searching with the same Listing", () => {
     sharedListing = createdListing;
   });
 
-  test.beforeEach(async ({ authenticatedPage }) => {
+  test.beforeEach(async ({ authenticatedPage }, testInfo) => {
     homePage = new HomePage(authenticatedPage);
     featureListingsPage = new FeatureListingsPage(authenticatedPage);
 
-    await authenticatedPage.goto("/");
+    await authenticatedPage.goto(testInfo.project.use.env.base_url);
     await featureListingsPage.switchtoDark.check();
   });
 

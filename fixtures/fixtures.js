@@ -4,11 +4,11 @@ import { apiCreateListings } from "../api/listingsApi";
 import users from "../data/users.json";
 
 export const test = base.extend({
-  authenticatedPage: async ({ browser }, use) => {
+  authenticatedPage: async ({ browser }, use, testInfo) => {
     const apiClient = await request.newContext();
-    const token = await apiLogin(apiClient, users.user.email, users.user.password);
+    const token = await apiLogin(apiClient, testInfo.project.use.env.base_email, testInfo.project.use.env.base_password);
     const context = await browser.newContext();
-
+    
     await context.addInitScript(({ tokenValue }) => {
         window.localStorage.setItem("accessToken", tokenValue);
       }, { tokenValue: token });
@@ -18,9 +18,9 @@ export const test = base.extend({
     await context.close();
   },
 
-  createdListing: async ({}, use) => {
+  createdListing: async ({}, use, testInfo) => {
     const apiClient = await request.newContext();
-    const token = await apiLogin(apiClient, users.user.email, users.user.password);
+    const token = await apiLogin(apiClient, testInfo.project.use.env.base_email, testInfo.project.use.env.base_password);
     const listing = await apiCreateListings(apiClient, token);
 
     await use(listing);

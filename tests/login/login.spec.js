@@ -3,7 +3,6 @@ import { LoginPage } from "../../page_objects/login.page";
 import { HomePage } from "../../page_objects/home.page";
 import { DashboardPage } from "../../page_objects/dashboard.page";
 import { apiLogin } from "../../api/usersApi";
-import users from "../../data/users.json";
 
 let dashboardPage, loginPage, homePage;
 
@@ -13,20 +12,19 @@ test.beforeEach(async ({ page }) => {
   homePage = new HomePage(page);
 });
 
-test("Should log in with your existing account as an admin", async ({ page }) => {
-  await page.goto("/");
-
+test("Should log in with your existing account", async ({page}, testInfo) => {
+  await page.goto(testInfo.project.use.env.base_url);
   await homePage.buttonLogin.click();
-  await loginPage.login(users.user.email, users.user.password);
+  await loginPage.login(testInfo.project.use.env.base_email,testInfo.project.use.env.base_password);
 
   await expect(dashboardPage.fullUsersNameInput).toHaveText("stel stam");
   await expect(dashboardPage.roleName).toHaveText("role: realtor");
 });
 
-test("Should log out", async ({ page, request }) => {
-  const token = await apiLogin(request, users.user.email, users.user.password);
+test("Should log out", async ({ page, request }, testInfo) => {
+  const token = await apiLogin(request, testInfo.project.use.env.base_email, testInfo.project.use.env.base_password);
 
-  await page.goto("/");
+  await page.goto(testInfo.project.use.env.base_url);
   await page.evaluate((token) => localStorage.setItem('accessToken', token), token);
   await page.goto("/dashboard/user/profile");
   await dashboardPage.profileButton.click();
