@@ -3,11 +3,7 @@ import { HomePage } from "../../page_objects/home.page";
 import { RegistrationPage } from "../../page_objects/registration.page";
 import { DashboardPage } from "../../page_objects/dashboard.page";
 import { LoginPage } from "../../page_objects/login.page";
-
-const nameRandom = (Math.random() + 1).toString(36).substring(3);
-const lastNameRandom = (Math.random() + 1).toString(36).substring(3);
-const emailRandom = `${nameRandom}${lastNameRandom}@gmail.com`;
-const passwordRandom = (Math.random() + 1).toString(36).substring(3);
+import { faker } from '@faker-js/faker';
 
 let registrationPage;
 let dashboardPage;
@@ -24,6 +20,11 @@ test.beforeEach( async ({ page }) => {
 });
 
 test("Should register a new account", async ({ page }) => {
+  const nameRandom = faker.person.firstName();
+  const lastNameRandom = faker.person.lastName();
+  const emailRandom = faker.internet.email({ firstName: nameRandom, lastName: lastNameRandom });
+  const passwordRandom = faker.internet.password();
+
   await homePage.buttonRegister.click();
   await registrationPage.registration(nameRandom,lastNameRandom, passwordRandom, emailRandom);
 
