@@ -1,14 +1,13 @@
 import { test as base, request } from "@playwright/test";
 import { apiLogin } from "../api/usersApi";
 import { apiCreateListings } from "../api/listingsApi";
-import users from "../data/users.json";
 
 export const test = base.extend({
   authenticatedPage: async ({ browser }, use, testInfo) => {
     const apiClient = await request.newContext();
     const token = await apiLogin(apiClient, testInfo.project.use.env.base_email, testInfo.project.use.env.base_password);
     const context = await browser.newContext();
-    
+
     await context.addInitScript(({ tokenValue }) => {
         window.localStorage.setItem("accessToken", tokenValue);
       }, { tokenValue: token });
