@@ -12,16 +12,16 @@ const lastNameRandom = faker.person.lastName();
 const emailRandom = faker.internet.email({ firstName: nameRandom, lastName: lastNameRandom });
 const passwordRandom = faker.internet.password();
 
-test.beforeEach( async ({ page }) => {
+test.beforeEach( async ({ page }, testInfo) => {
   registrationPage = new RegistrationPage(page);
   dashboardPage = new DashboardPage(page);
   homePage = new HomePage(page);
   loginPage = new LoginPage(page);
   
-  await page.goto("/");
+  await page.goto(testInfo.project.use.env.base_url);
 });
 
-test("Should register a new account", async ({ page }) => {
+test("Should register a new account", async () => {
   await homePage.buttonRegister.click();
   await registrationPage.registration(nameRandom,lastNameRandom, passwordRandom, emailRandom);
 
@@ -38,7 +38,7 @@ test("Should not register with an already existing email account", async ({ page
   await expect(page).toHaveURL("/auth/register");
 });
 
-test("Should not register without filling in the required fields", async ({ page }) => {
+test("Should not register without filling in the required fields", async () => {
   await homePage.buttonRegister.click();
   await registrationPage.registerButton.click();
 
