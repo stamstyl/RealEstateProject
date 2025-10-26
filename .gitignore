@@ -11,4 +11,3 @@ node_modules/
 /tests/example.spec.js
 /tests-examples/
 playwright.config.js
-data/users.json
