@@ -16,10 +16,10 @@ jobs:
     - uses: actions/setup-node@v4
       with:
         node-version: lts/*
+    - name: Console env
+      run: echo "$BASE_URL"
     - name: Install dependencies
       run: npm ci
-    - name: Saw me base
-      run: echo "$BASE_URL"
     - name: Run tests
       run: npm test
     - name: Install Playwright Browsers
