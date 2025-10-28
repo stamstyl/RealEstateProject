@@ -13,7 +13,7 @@ test.beforeEach(async ({ page }) => {
 });
 
 test("Should log in with your existing account", async ({page}, testInfo) => {
-  await page.goto(testInfo.project.use.env.base_url);
+  await page.goto(testInfo.project.use.env.BASE_URL);
   await homePage.buttonLogin.click();
   await loginPage.login(testInfo.project.use.env.base_email,testInfo.project.use.env.base_password);
 
