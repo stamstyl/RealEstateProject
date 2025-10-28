@@ -16,7 +16,7 @@ test.describe("Searching with the same Listing", () => {
     homePage = new HomePage(authenticatedPage);
     featureListingsPage = new FeatureListingsPage(authenticatedPage);
 
-    await authenticatedPage.goto(testInfo.project.use.env.base_url);
+    await authenticatedPage.goto(testInfo.project.use.env.baseUrl);
     await featureListingsPage.switchtoDark.check();
   });
 

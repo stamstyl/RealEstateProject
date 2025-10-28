@@ -5,7 +5,7 @@ import { apiCreateListings } from "../api/listingsApi";
 export const test = base.extend({
   authenticatedPage: async ({ browser }, use, testInfo) => {
     const apiClient = await request.newContext();
-    const token = await apiLogin(apiClient, testInfo.project.use.env.base_email, testInfo.project.use.env.base_password);
+    const token = await apiLogin(apiClient, testInfo.project.use.env.baseEmail, testInfo.project.use.env.basePassword);
     const context = await browser.newContext();
 
     await context.addInitScript(({ tokenValue }) => {
@@ -19,7 +19,7 @@ export const test = base.extend({
 
   createdListing: async ({}, use, testInfo) => {
     const apiClient = await request.newContext();
-    const token = await apiLogin(apiClient, testInfo.project.use.env.base_email, testInfo.project.use.env.base_password);
+    const token = await apiLogin(apiClient, testInfo.project.use.env.baseEmail, testInfo.project.use.env.basePassword);
     const listing = await apiCreateListings(apiClient, token);
 
     await use(listing);

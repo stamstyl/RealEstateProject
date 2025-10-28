@@ -14,15 +14,16 @@ test.beforeEach(async ({ page }) => {
 
 test("Should log in with your existing account", async ({page}, testInfo) => {
   await page.goto(testInfo.project.use.env.baseUrl);
+  console.log(testInfo.project.use.env);
   await homePage.buttonLogin.click();
-  await loginPage.login(testInfo.project.use.env.base_email,testInfo.project.use.env.base_password);
+  await loginPage.login(testInfo.project.use.env.baseEmail,testInfo.project.use.env.basePassword);
 
   await expect(dashboardPage.fullUsersNameInput).toHaveText("stel stam");
   await expect(dashboardPage.roleName).toHaveText("role: realtor");
 });
 
 test("Should log out", async ({ page, request }, testInfo) => {
-  const token = await apiLogin(request, testInfo.project.use.env.base_email, testInfo.project.use.env.base_password);
+  const token = await apiLogin(request, testInfo.project.use.env.baseEmail, testInfo.project.use.env.basePassword);
 
   await page.goto(testInfo.project.use.env.baseUrl);
   await page.evaluate((token) => localStorage.setItem('accessToken', token), token);

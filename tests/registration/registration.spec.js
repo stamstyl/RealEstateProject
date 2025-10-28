@@ -18,7 +18,7 @@ test.beforeEach( async ({ page }, testInfo) => {
   homePage = new HomePage(page);
   loginPage = new LoginPage(page);
   
-  await page.goto(testInfo.project.use.env.base_url);
+  await page.goto(testInfo.project.use.env.baseUrl);
 });
 
 test("Should register a new account", async () => {
