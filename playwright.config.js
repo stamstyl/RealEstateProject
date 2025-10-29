@@ -29,7 +29,6 @@ export default defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
-    baseURL: "https://dev.delekhomes.com/",
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: "on-first-retry",
@@ -37,6 +36,8 @@ export default defineConfig({
       baseUrl: process.env.BASE_URL,
       baseEmail: process.env.BASE_EMAIL,
       basePassword: process.env.BASE_PASSWORD,
+      baseUserApi: process.env.BASE_USERAPI,
+      baseListingApi: process.env.BASE_LISTINGAPI,
     },
   },
 

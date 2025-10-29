@@ -2,7 +2,8 @@ import { faker } from '@faker-js/faker'
 import fs from 'fs'
 import path from "path";
 
-export async function apiCreateListings(apiClient, apiToken) {
+export async function apiCreateListings(apiClient, apiToken, baseUrl, baseListingApi) {
+  const listingFullUrl = new URL(baseListingApi, baseUrl).toString()
   const imagePath = path.resolve(__dirname, "../data/house.jpg");
 
   const data = {
@@ -22,7 +23,7 @@ export async function apiCreateListings(apiClient, apiToken) {
     isPublished: true
   };
 
-  const apiListingResponse = await apiClient.post(`/api/estate-objects`, {
+  const apiListingResponse = await apiClient.post(listingFullUrl, {
     multipart: data,
     Authorization: `Bearer ${apiToken}`
   });

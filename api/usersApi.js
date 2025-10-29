@@ -1,8 +1,10 @@
-export async function apiLogin(apiClient, email, password) {
-    const apiLoginResponse = await apiClient.post(`/api/users/login`, {
+export async function apiLogin(request, baseUrl, baseUserApi, baseEmail, basePassword) {
+    const userFullUrl = new URL(baseUserApi, baseUrl).toString();
+
+    const apiLoginResponse = await request.post(userFullUrl, {
       data: {
-        email,
-        password
+        email: baseEmail,
+        password: basePassword
       }
     });
     

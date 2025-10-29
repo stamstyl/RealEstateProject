@@ -11,6 +11,8 @@ jobs:
       BASE_URL: ${{ secrets.BASE_URL }}
       BASE_EMAIL: ${{ secrets.BASE_EMAIL }}
       BASE_PASSWORD: ${{ secrets.BASE_PASSWORD }}
+      BASE_USERAPI: ${{ secrets.BASE_USERAPI }}
+      BASE_LISTINGAPI: ${{ secrets.BASE_LISTINGAPI }}
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-node@v4

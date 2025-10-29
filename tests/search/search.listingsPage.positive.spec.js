@@ -11,10 +11,11 @@ test.describe("Searching with the same Listing", () => {
     sharedListing = createdListing;
   });
 
-  test.beforeEach(async ({ authenticatedPage }) => {
+  test.beforeEach(async ({ authenticatedPage }, testInfo) => {
     featureListingsPage = new FeatureListingsPage(authenticatedPage);
+    const {baseUrl} = testInfo.project.use.env;
 
-    await authenticatedPage.goto("/featured-listings");
+    await authenticatedPage.goto(`${baseUrl}featured-listings`);
     await featureListingsPage.switchtoDark.check();
   });
 
@@ -68,13 +69,14 @@ test.describe("Searching with the same Listing", () => {
     await expect(featureListingsPage.moreInfoDescription).toContainText(sharedListing.description);
   });
 
-  test("Should search by price", async ({ authenticatedPage }) => {
+  test("Should search by price", async ({ authenticatedPage }, testInfo) => {
+    const {baseUrl} = testInfo.project.use.env;
     const lowPrice = sharedListing.price - 100000;
     const highPrice = +sharedListing.price + 100000;
     const lowPriceDigit = parseInt(lowPrice, 10);
     const highPriceDigit = parseInt(highPrice, 10);
 
-    await authenticatedPage.goto(`/featured-listings?price=${lowPrice}-${highPrice}`);
+    await authenticatedPage.goto(`${baseUrl}featured-listings?price=${lowPrice}-${highPrice}`);
     await featureListingsPage.moreInfoPage();
 
     const text = await featureListingsPage.moreInfoPrice.textContent();

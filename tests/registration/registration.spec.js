@@ -29,13 +29,13 @@ test("Should register a new account", async () => {
   await expect(dashboardPage.roleName).toHaveText("role: user");
 });
 
-test("Should not register with an already existing email account", async ({ page }) => {
+test("Should not register with an already existing email account", async ({ page }, testInfo) => {
   await homePage.buttonRegister.click();
   await loginPage.existingEmail();
   await registrationPage.registration(nameRandom, lastNameRandom, passwordRandom);
 
   await expect(registrationPage.dataInputError).toHaveText("Input data validation failed");
-  await expect(page).toHaveURL("/auth/register");
+  await expect(page).toHaveURL(`${testInfo.project.use.env.baseUrl}auth/register`);
 });
 
 test("Should not register without filling in the required fields", async () => {
