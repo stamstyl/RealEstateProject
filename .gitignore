@@ -10,4 +10,3 @@ node_modules/
 /.DS_Store
 /tests/example.spec.js
 /tests-examples/
-playwright.config.js
